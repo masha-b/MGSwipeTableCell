@@ -77,7 +77,7 @@ typedef NS_ENUM(NSInteger, MGSwipeEasingFunction) {
 @property (nonatomic, assign) MGSwipeTransition transition;
 /** Size proportional threshold to hide/keep the buttons when the user ends swiping. Default value 0.5 */
 @property (nonatomic, assign) CGFloat threshold;
-/** Optional offset to change the swipe buttons position. Relative to the cell border position. Default value: 0 
+/** Optional offset to change the swipe buttons position. Relative to the cell border position. Default value: 0
  ** For example it can be used to avoid cropped buttons when sectionIndexTitlesForTableView is used in the UITableView
  **/
 @property (nonatomic, assign) CGFloat offset;
@@ -128,7 +128,7 @@ typedef NS_ENUM(NSInteger, MGSwipeEasingFunction) {
 /** Animation settings when the expansion is triggered **/
 @property (nonatomic, strong) MGSwipeAnimation * triggerAnimation;
 
-/** Property to read or change expansion animation durations. Default value 0.2 
+/** Property to read or change expansion animation durations. Default value 0.2
  * The target animation is the change of a button from normal state to expanded state
  */
 @property (nonatomic, assign) CGFloat animationDuration;
@@ -138,7 +138,7 @@ typedef NS_ENUM(NSInteger, MGSwipeEasingFunction) {
 /** helper forward declaration */
 @class MGSwipeTableCell;
 
-/** 
+/**
  * Optional delegate to configure swipe buttons or to receive triggered actions.
  * Buttons can be configured inline when the cell is created instead of using this delegate,
  * but using the delegate improves memory usage because buttons are only created in demand
@@ -159,6 +159,13 @@ typedef NS_ENUM(NSInteger, MGSwipeEasingFunction) {
  @param gestureIsActive YES if the user swipe gesture is active. No if the uses has already ended the gesture
  **/
 -(void) swipeTableCell:(MGSwipeTableCell*) cell didChangeSwipeState:(MGSwipeState) state gestureIsActive:(BOOL) gestureIsActive;
+
+/**
+ * Delegate method invoked when the current swipe state changes
+ @param state the current Swipe State
+ @param gestureIsActive YES if the user swipe gesture is active. No if the uses has already ended the gesture
+ **/
+-(void) swipeTableCell:(MGSwipeTableCell*) cell didAminationFinished:(BOOL)finished withSwipeState:(MGSwipeState) state;
 
 /**
  * Called when the user clicks a swipe button or when a expandable button is automatically triggered
@@ -211,7 +218,7 @@ typedef NS_ENUM(NSInteger, MGSwipeEasingFunction) {
 /** optional to use contentView alternative. Use this property instead of contentView to support animated views while swiping */
 @property (nonatomic, strong, readonly) UIView * swipeContentView;
 
-/** 
+/**
  * Left and right swipe buttons and its settings.
  * Buttons can be any kind of UIView but it's recommended to use the convenience MGSwipeButton class
  */
@@ -247,6 +254,20 @@ typedef NS_ENUM(NSInteger, MGSwipeEasingFunction) {
 @property (nonatomic, strong) UIColor * swipeBackgroundColor;
 /** Property to read or change the current swipe offset programmatically */
 @property (nonatomic, assign) CGFloat swipeOffset;
+
+@property (nonatomic, strong) UIImageView * swipeView;
+@property (nonatomic, strong) IBOutlet UIView *ssSwipeView;
+@property (nonatomic, strong) IBOutlet UIView *ssBouncingView;
+
+@property (nonatomic, assign) BOOL ssPermanentSwipeView;
+@property (nonatomic, assign) BOOL ssSwipeViewCreated;
+@property (nonatomic, assign) CGFloat ssBoucingViewOffset;
+@property (nonatomic, assign) CGFloat ssBoucingViewOffsetLimit;
+@property (nonatomic, assign) BOOL ssCanTranslateBoucingView;
+@property (nonatomic, strong) NSMutableArray *ssAnimationsStack;
+@property (nonatomic, assign) BOOL ssButtonsViewOverSwipeView;
+
+- (void) ssBouncingWithIsTap:(BOOL)isTap;
 
 /** Utility methods to show or hide swipe buttons programmatically */
 -(void) hideSwipeAnimated: (BOOL) animated;
