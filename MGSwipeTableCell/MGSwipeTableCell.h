@@ -190,6 +190,7 @@ typedef NS_ENUM(NSInteger, MGSwipeEasingFunction) {
  * @return YES to autohide the current swipe buttons
  **/
 -(BOOL) swipeTableCell:(MGSwipeTableCell *)cell shouldHideSwipeOnTap:(CGPoint) point;
+-(BOOL) swipeTableCell:(MGSwipeTableCell *)cell shouldShowSwipeOnTap:(MGSwipeDirection) direction;
 
 /**
  * Called when the cell will begin swiping

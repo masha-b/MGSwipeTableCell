@@ -1301,12 +1301,26 @@ static inline CGFloat mgEaseInOutBounce(CGFloat t, CGFloat b, CGFloat c) {
     if (_delegate && [_delegate respondsToSelector:@selector(swipeTableCell:shouldHideSwipeOnTap:)]) {
         hide = [_delegate swipeTableCell:self shouldHideSwipeOnTap:[recognizer locationInView:self]];
     }
-    if (hide) {
-        if (_swipeOffset != 0) {
-            [self ssBouncingWithIsTap:YES];
-        }
-        
+    BOOL showRigtToLeft = YES;
+    if (_delegate && [_delegate respondsToSelector:@selector(swipeTableCell:shouldShowSwipeOnTap:)]) {
+        hide = [_delegate swipeTableCell:self shouldShowSwipeOnTap:MGSwipeDirectionRightToLeft];
+    }
+    BOOL showLeftToRight = YES;
+    if (_delegate && [_delegate respondsToSelector:@selector(swipeTableCell:shouldShowSwipeOnTap:)]) {
+        hide = [_delegate swipeTableCell:self shouldShowSwipeOnTap:MGSwipeDirectionLeftToRight];
+    }
+    
+    if (hide && _swipeOffset != 0) {
+        [self ssBouncingWithIsTap:YES];
         [self hideSwipeAnimated:YES];
+    }
+    if (showRigtToLeft && _rightButtons.count && _swipeOffset == 0) {
+        [self ssBouncingWithIsTap:YES];
+        [self showSwipe:MGSwipeDirectionRightToLeft animated:YES];
+    }
+    else if (showLeftToRight && _leftButtons.count && _swipeOffset == 0) {
+        [self ssBouncingWithIsTap:YES];
+        [self showSwipe:MGSwipeDirectionLeftToRight animated:YES];
     }
 }
 
