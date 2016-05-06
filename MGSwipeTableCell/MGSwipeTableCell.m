@@ -1314,6 +1314,7 @@ static inline CGFloat mgEaseInOutBounce(CGFloat t, CGFloat b, CGFloat c) {
         [self ssBouncingWithIsTap:YES];
         [self hideSwipeAnimated:YES];
     }
+    
     if (showRigtToLeft && _rightButtons.count && _swipeOffset == 0) {
         [self ssBouncingWithIsTap:YES];
         [self showSwipe:MGSwipeDirectionRightToLeft animated:YES];
